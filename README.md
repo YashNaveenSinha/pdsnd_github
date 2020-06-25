@@ -19,4 +19,4 @@ This project explores the data of a bikeshare company and uses different EDA tec
 4. washington.csv
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+In order to check for errors and proper libraries I referred to stackoverflow.com and rdocumentation.org 
