@@ -1,7 +1,7 @@
 
 **Firstly we read the csv files into our jupyter R workspace on which the analysis will be performed.**
 
-#reading the csv files 
+#reading the csv files
 ny = read.csv('new_york_city.csv')
 wash = read.csv('washington.csv')
 chi = read.csv('chicago.csv')
@@ -17,6 +17,13 @@ head(chi)#checking the structure of Chicago's dataset
 library(ggplot2) #popular package used for exploratry data analysis for creating graphs in R
 library(lubridate) #package used to deal easily with date objects in R
 
+#function to plot uses in each month
+plot_count_per_month<-function(m){
+months<- c("Jan","Feb","March","Apr","May","June") #for putting as label
+qplot(factor(m) ,xlab="Months" , ylab="Count" , main="Total uses in each months for New York",fill=m)+
+scale_x_discrete(labels= months) #graphing the month to see which month has most activity
+}
+
 #New York
 #We only deal with the Start.Time column of our datasets as it will be enough for the question we want answered
 class(ny$Start.Time) #to check the class or datatype of this column
@@ -28,13 +35,11 @@ class(ny$Start.Time)
 head(ny$Start.Time) #to check the changes
 summary(ny$Start.Time) #to explore the column more
 
-m<-month(as.POSIXlt(ny$Start.Time, format="%d/%m/%Y")) #to extract months from the date variable that we created earlier
-table(m) #to check which months have the most number of use
+month_count<-month(as.POSIXlt(ny$Start.Time, format="%d/%m/%Y")) #to extract months from the date variable that we created earlier
+table(month_count) #to check which months have the most number of use
 
 #From above it is clear that most uses were in June, graphically representing it using qplot function of ggplot2
-months<- c("Jan","Feb","March","Apr","May","June") #for putting as label
-qplot(factor(m) ,xlab="Months" , ylab="Count" , main="Total uses in each months for New York",fill=m)+
-scale_x_discrete(labels= months) #graphing the month to see which month has most activity
+plot_count_per_month(month_count)
 
 #Washington
 #We only deal with the Start.Time column of our datasets as it will be enough for the question we want answered
@@ -54,10 +59,8 @@ summary(wash$Start.Time[-89051]) #to explore the column more
 m<-month(as.POSIXlt(wash$Start.Time[-89051], format="%d/%m/%Y")) #to extract months from the date variable that we created earlier except the one with NA's
 table(m) #to check which months have the most number of use
 
-#Again in the month of june the service has mostly been used,graphically representing it too  
-months<- c("Jan","Feb","March","Apr","May","June")#for putting as label
-qplot(factor(m) ,xlab="Months" , ylab="Count" , main="Total uses in each months for Washington",fill=m)+
-scale_x_discrete(labels= months) #graphing the month to see which month has most activity
+#Again in the month of june the service has mostly been used,graphically representing it too
+plot_count_per_month(m)
 
 #Chicago
 #We only deal with the Start.Time column of our datasets as it will be enough for the question we want answered
@@ -73,10 +76,8 @@ summary(chi$Start.Time) #to explore the column more
 m<-month(as.POSIXlt(chi$Start.Time, format="%d/%m/%Y")) #to extract months from the date variable that we created earlier
 table(m) #to check which months have the most number of use
 
-#Again in the month of june the service has mostly been used,graphically representing it too  
-months<- c("Jan","Feb","March","Apr","May","June")#for putting as label
-qplot(factor(m) ,xlab="Months" , ylab="Count" , main="Total uses in each months for Chicago",fill=m)+
-scale_x_discrete(labels= months) #graphing the month to see which month has most activity
+#Again in the month of june the service has mostly been used,graphically representing it too
+plot_count_per_month(m)
 
 # from above 3 graphs it is clear that the most activity or bookings of the bikes took place in the month of JUne in all three
 #We plot a graph to show the most activity combined all 3 places
@@ -87,7 +88,7 @@ which(is.na(tot.df$Start.Time))
 m<-month(as.POSIXlt(tot.df$Start.Time[-143821], format="%d/%m/%Y")) #to extract months from the date variable that we created earlier
 table(m) #to check which months have the most number of use
 
-#Finally combing all three files we get that most in the month of june the service has mostly been used,graphically representing it too  
+#Finally combing all three files we get that most in the month of june the service has mostly been used,graphically representing it too
 months<- c("Jan","Feb","March","Apr","May","June")#for putting as label
 qplot(factor(m) ,xlab="Months" , ylab="Count" , main="Total uses in each months for All the 3 cities",fill=m)+
 scale_x_discrete(labels= months) #graphing the month to see which month has most activity
@@ -100,7 +101,7 @@ table(is.na(chi$Birth.Year))# to check for NA's in Chicago dataset
 summary(ny$Birth.Year)# findind summary of Birth Year of New York dataset to check which age group uses this service more in new York
 summary(chi$Birth.Year)#finding summary of Birth Year of Chicago dataset to check which age group uses this service more in Chicago
 
-nrow(ny)#total number of entries in New York dataset 
+nrow(ny)#total number of entries in New York dataset
 nrow(chi)#total number of entries in Chicago dataset
 table(ny$Gender)#Gender wise distribution of the entries in New York dataset to find which gender uses the service more
 table(chi$Gender)#Gender wise distribution of the entries in Chicago dataset to find which gender uses the service more
