@@ -7,7 +7,7 @@ This project requires R 3.6.3 and the following R libraries installed:
 2. lubridate
 
 ### Project Title
-Exploring bikeshare data
+Bikeshare Data Project
 
 ### Description
 This project explores the data of a bikeshare company and uses different EDA techniques to answers different questions based on the data.
@@ -19,4 +19,4 @@ This project explores the data of a bikeshare company and uses different EDA tec
 4. washington.csv
 
 ### Credits
-In order to check for errors and proper libraries I referred to stackoverflow.com and rdocumentation.org 
+In order to check for errors and proper libraries I referred to stackoverflow.com and rdocumentation.org
